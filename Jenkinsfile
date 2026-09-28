@@ -1,44 +1,66 @@
 pipeline {
+
     agent any
 
-    environment {
-        APP_NAME = 'placement-portal'
-        IMAGE_TAG = "${env.BUILD_NUMBER}"
-    }
-
     stages {
+
         stage('Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/YOUR_USERNAME/YOUR_REPO.git'
-            }
-        }
-
-        stage('Install dependencies') {
-            steps {
-                sh 'python3 -m venv venv'
-                sh '. venv/bin/activate && pip install --upgrade pip && pip install -r requirements.txt'
+                echo 'Downloading source code from GitHub...'
+                checkout scm
             }
         }
 
         stage('Test') {
             steps {
-                sh '. venv/bin/activate && python -m compileall .'
-            }
-        }
+                echo 'Testing web application...'
 
-        stage('Build Docker image') {
-            steps {
-                sh 'docker build -t ${APP_NAME}:${IMAGE_TAG} .'
-            }
-        }
-
-        stage('Deploy to AWS') {
-            steps {
-                sh '''
-                    echo "Deploying to AWS EC2 or ECS here..."
-                    echo "Example: docker run -d -p 8000:8000 ${APP_NAME}:${IMAGE_TAG}"
+                bat '''
+                if exist index.html (
+                    echo TEST PASSED: index.html exists
+                ) else (
+                    echo TEST FAILED
+                    exit /b 1
+                )
                 '''
             }
+        }
+
+        stage('Build') {
+            steps {
+                echo 'Building web application...'
+
+                bat '''
+                if not exist build mkdir build
+
+                copy index.html build\\
+                copy style.css build\\
+                '''
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                echo 'Deploying application...'
+
+                bat '''
+                if not exist C:\\jenkins-deploy mkdir C:\\jenkins-deploy
+
+                copy /Y build\\index.html C:\\jenkins-deploy\\
+                copy /Y build\\style.css C:\\jenkins-deploy\\
+                '''
+            }
+        }
+    }
+
+    post {
+
+        success {
+            echo 'CI/CD Pipeline completed successfully!'
+        }
+
+        failure {
+            echo 'CI/CD Pipeline failed!'
         }
     }
 }
