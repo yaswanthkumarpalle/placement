@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CampusPlacement - Recruitment & Analytics Portal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="min-h-screen flex flex-col">
+    <div id="auth-screen" class="min-h-screen flex items-center justify-center bg-slate-950 px-4 py-8">
+        <div class="w-full max-w-5xl grid lg:grid-cols-2 gap-6">
+            <div class="rounded-3xl border border-slate-800 bg-slate-900/80 p-8 shadow-2xl">
+                <div class="mb-8">
+                    <span class="inline-flex items-center gap-2 rounded-full border border-blue-500/30 bg-blue-500/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-blue-300">
+                        <i class="fa-solid fa-shield-halved"></i> Access Portal
+                    </span>
+                    <h2 class="mt-5 text-3xl font-bold text-white">Campus placement access</h2>
+                    <p class="mt-3 text-sm text-slate-400">Users can create an account. Author accounts are provided by the developer and can sign in here.</p>
+                </div>
+
+                <div class="space-y-5">
+                    <div class="p-4 rounded-2xl border border-slate-800 bg-slate-950/70">
+                        <p class="text-[11px] font-semibold uppercase tracking-[0.2em] text-slate-400 mb-3">Role switch</p>
+                        <div class="grid grid-cols-2 gap-3">
+                            <button type="button" data-auth-role="user" class="auth-role-btn active rounded-xl border border-blue-500/40 bg-blue-500/10 px-4 py-3 text-sm font-semibold text-blue-300">User</button>
+                            <button type="button" data-auth-role="author" class="auth-role-btn rounded-xl border border-slate-700 bg-slate-800 px-4 py-3 text-sm font-semibold text-slate-300">Author</button>
+                        </div>
+                    </div>
+
+                    <div id="auth-view-switcher" class="grid grid-cols-2 gap-3 bg-slate-950/70 rounded-2xl border border-slate-800 p-1">
+                        <button type="button" data-auth-view="signin" class="auth-view-btn active rounded-xl bg-blue-600 px-4 py-3 text-sm font-semibold text-white">Sign In</button>
+                        <button type="button" data-auth-view="signup" class="auth-view-btn rounded-xl px-4 py-3 text-sm font-semibold text-slate-300">Sign Up</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="rounded-3xl border border-slate-800 bg-slate-900/80 p-8 shadow-2xl">
+                <div id="signin-panel" class="auth-panel">
+                    <h3 class="text-2xl font-bold text-white mb-5">Welcome back</h3>
+                    <form id="signin-form" class="space-y-4">
+                        <div>
+                            <label class="block text-xs font-medium text-slate-400 mb-1">Email</label>
+                            <input type="email" id="signin-email" required class="w-full rounded-xl border border-slate-700 bg-slate-950 px-3 py-2.5 text-sm text-white focus:border-blue-500 focus:outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-slate-400 mb-1">Password</label>
+                            <input type="password" id="signin-password" required class="w-full rounded-xl border border-slate-700 bg-slate-950 px-3 py-2.5 text-sm text-white focus:border-blue-500 focus:outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-slate-400 mb-1">Role</label>
+                            <select id="signin-role" class="w-full rounded-xl border border-slate-700 bg-slate-950 px-3 py-2.5 text-sm text-white focus:border-blue-500 focus:outline-none">
+                                <option value="user">User</option>
+                                <option value="author">Author</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="w-full rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 px-4 py-3 text-sm font-bold text-white hover:brightness-110 transition">Sign In</button>
+                    </form>
+                </div>
+
+                <div id="signup-panel" class="auth-panel hidden">
+                    <h3 class="text-2xl font-bold text-white mb-5">Create account</h3>
+                    <form id="signup-form" class="space-y-4">
+                        <div>
+                            <label class="block text-xs font-medium text-slate-400 mb-1">Full name</label>
+                            <input type="text" id="signup-name" required class="w-full rounded-xl border border-slate-700 bg-slate-950 px-3 py-2.5 text-sm text-white focus:border-blue-500 focus:outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-slate-400 mb-1">Email</label>
+                            <input type="email" id="signup-email" required class="w-full rounded-xl border border-slate-700 bg-slate-950 px-3 py-2.5 text-sm text-white focus:border-blue-500 focus:outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-slate-400 mb-1">Password</label>
+                            <input type="password" id="signup-password" required class="w-full rounded-xl border border-slate-700 bg-slate-950 px-3 py-2.5 text-sm text-white focus:border-blue-500 focus:outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-slate-400 mb-1">Role</label>
+                            <select id="signup-role" class="w-full rounded-xl border border-slate-700 bg-slate-950 px-3 py-2.5 text-sm text-white focus:border-blue-500 focus:outline-none">
+                                <option value="user">User</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="w-full rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 px-4 py-3 text-sm font-bold text-white hover:brightness-110 transition">Create account</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="app-shell" class="hidden min-h-screen flex flex-col">
+        <!-- Top Header Navigation -->
+        <header class="sticky top-0 z-40 bg-slate-900/90 backdrop-blur-md border-b border-slate-800 px-4 lg:px-8 py-3">
+            <div class="max-w-7xl mx-auto flex flex-col md:flex-row md:items-center justify-between gap-4">
+                <div class="flex items-center space-x-3">
+                    <div class="p-2.5 bg-gradient-to-tr from-blue-600 to-indigo-500 rounded-xl shadow-lg shadow-blue-500/20">
+                        <i class="fa-solid me-0 fa-graduation-cap text-xl text-white"></i>
+                    </div>
+                    <div>
+                        <h1 class="font-bold text-lg text-slate-100 flex items-center gap-2">
+                            PlacementDBMS Portal
+                            <span class="text-xs font-normal px-2 py-0.5 rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/20">v2.4 Production</span>
+                        </h1>
+                        <p class="text-xs text-slate-400">Campus Recruitment & Student Eligibility Engine</p>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-3">
+                    <div id="user-badge" class="rounded-full border border-slate-700 bg-slate-800 px-3 py-1.5 text-xs text-slate-300">
+                        Guest
+                    </div>
+                    <button id="logout-btn" type="button" class="hidden rounded-lg border border-slate-700 bg-slate-800 px-3 py-1.5 text-xs font-medium text-slate-200 hover:border-slate-500 transition">
+                        Logout
+                    </button>
+                </div>
+
+                <!-- Action Controls & Tabs -->
+                <div class="flex items-center space-x-2 overflow-x-auto pb-1 md:pb-0">
+                <button onclick="switchTab('analytics')" id="tab-btn-analytics" class="tab-btn px-3.5 py-1.5 text-xs font-medium rounded-lg transition-all duration-200 flex items-center gap-2 bg-blue-600 text-white shadow-md shadow-blue-600/20">
+                    <i class="fa-solid fa-chart-pie"></i> Overview
+                </button>
+                <button onclick="switchTab('students')" id="tab-btn-students" class="tab-btn px-3.5 py-1.5 text-xs font-medium rounded-lg text-slate-400 hover:text-slate-200 hover:bg-slate-800 transition-all duration-200 flex items-center gap-2">
+                    <i class="fa-solid fa-users"></i> Directory
+                </button>
+                <button onclick="switchTab('matcher')" id="tab-btn-matcher" class="tab-btn px-3.5 py-1.5 text-xs font-medium rounded-lg text-slate-400 hover:text-slate-200 hover:bg-slate-800 transition-all duration-200 flex items-center gap-2">
+                    <i class="fa-solid fa-building"></i> Drive Matcher
+                </button>
+                <button onclick="switchTab('rankings')" id="tab-btn-rankings" class="tab-btn px-3.5 py-1.5 text-xs font-medium rounded-lg text-slate-400 hover:text-slate-200 hover:bg-slate-800 transition-all duration-200 flex items-center gap-2">
+                    <i class="fa-solid fa-trophy"></i> Candidate Rankings
+                </button>
+                <button onclick="switchTab('pipeline')" id="tab-btn-pipeline" class="tab-btn px-3.5 py-1.5 text-xs font-medium rounded-lg text-slate-400 hover:text-slate-200 hover:bg-slate-800 transition-all duration-200 flex items-center gap-2">
+                    <i class="fa-solid fa-diagram-project"></i> Pipeline
+                </button>
+                <button onclick="toggleSqlDrawer()" class="px-3.5 py-1.5 text-xs font-medium rounded-lg bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 hover:bg-emerald-500/20 transition-all flex items-center gap-1.5">
+                    <i class="fa-solid fa-terminal"></i> View SQL Queries
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-1 max-w-7xl w-full mx-auto p-4 lg:p-8 space-y-6">
+        
+        <!-- ================= ANALYTICS TAB ================= -->
+        <section id="tab-analytics" class="tab-content space-y-6">
+            <!-- Stats Row -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div class="glass-panel p-5 rounded-2xl border border-slate-800 relative overflow-hidden group hover:border-blue-500/40 transition-all">
+                    <div class="absolute -right-4 -bottom-4 w-24 h-24 bg-blue-500/5 rounded-full blur-xl group-hover:bg-blue-500/10 transition-all"></div>
+                    <div class="flex items-center justify-between">
+                        <p class="text-xs font-medium text-slate-400 uppercase tracking-wider">Total Registered</p>
+                        <span class="p-2 bg-blue-500/10 text-blue-400 rounded-lg text-sm"><i class="fa-solid fa-user-graduate"></i></span>
+                    </div>
+                    <h3 class="text-2xl font-bold text-slate-100 mt-2" id="stat-total-students">120</h3>
+                    <p class="text-xs text-slate-400 mt-1 flex items-center gap-1">
+                        <span class="text-emerald-400 font-medium"><i class="fa-solid fa-arrow-up text-[10px]"></i> 100%</span> active profiles
+                    </p>
+                </div>
+
+                <div class="glass-panel p-5 rounded-2xl border border-slate-800 relative overflow-hidden group hover:border-emerald-500/40 transition-all">
+                    <div class="absolute -right-4 -bottom-4 w-24 h-24 bg-emerald-500/5 rounded-full blur-xl group-hover:bg-emerald-500/10 transition-all"></div>
+                    <div class="flex items-center justify-between">
+                        <p class="text-xs font-medium text-slate-400 uppercase tracking-wider">Total Offers Placed</p>
+                        <span class="p-2 bg-emerald-500/10 text-emerald-400 rounded-lg text-sm"><i class="fa-solid fa-circle-check"></i></span>
+                    </div>
+                    <h3 class="text-2xl font-bold text-slate-100 mt-2" id="stat-placed-count">48</h3>
+                    <p class="text-xs text-slate-400 mt-1 flex items-center gap-1">
+                        <span class="text-emerald-400 font-medium" id="stat-placement-rate">40.0%</span> placement rate
+                    </p>
+                </div>
+
+                <div class="glass-panel p-5 rounded-2xl border border-slate-800 relative overflow-hidden group hover:border-purple-500/40 transition-all">
+                    <div class="absolute -right-4 -bottom-4 w-24 h-24 bg-purple-500/5 rounded-full blur-xl group-hover:bg-purple-500/10 transition-all"></div>
+                    <div class="flex items-center justify-between">
+                        <p class="text-xs font-medium text-slate-400 uppercase tracking-wider">Zero Backlogs</p>
+                        <span class="p-2 bg-purple-500/10 text-purple-400 rounded-lg text-sm"><i class="fa-solid fa-shield-halved"></i></span>
+                    </div>
+                    <h3 class="text-2xl font-bold text-slate-100 mt-2" id="stat-eligible-count">94</h3>
+                    <p class="text-xs text-slate-400 mt-1 flex items-center gap-1">
+                        <span class="text-purple-400 font-medium" id="stat-eligible-pct">78.3%</span> drive ready
+                    </p>
+                </div>
+
+                <div class="glass-panel p-5 rounded-2xl border border-slate-800 relative overflow-hidden group hover:border-amber-500/40 transition-all">
+                    <div class="absolute -right-4 -bottom-4 w-24 h-24 bg-amber-500/5 rounded-full blur-xl group-hover:bg-amber-500/10 transition-all"></div>
+                    <div class="flex items-center justify-between">
+                        <p class="text-xs font-medium text-slate-400 uppercase tracking-wider">Average / Highest CTC</p>
+                        <span class="p-2 bg-amber-500/10 text-amber-400 rounded-lg text-sm"><i class="fa-solid fa-indian-rupee-sign"></i></span>
+                    </div>
+                    <h3 class="text-2xl font-bold text-slate-100 mt-2">₹14.2 L / ₹45 L</h3>
+                    <p class="text-xs text-slate-400 mt-1 flex items-center gap-1">
+                        <span class="text-amber-400 font-medium">Top Tier:</span> Google / Microsoft
+                    </p>
+                </div>
+            </div>
+
+            <!-- Charts Row -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <!-- Branch Distribution Chart -->
+                <div class="glass-panel p-5 rounded-2xl border border-slate-800 lg:col-span-2 space-y-4">
+                    <div class="flex items-center justify-between">
+                        <h3 class="font-semibold text-slate-200 flex items-center gap-2">
+                            <i class="fa-solid fa-chart-column text-blue-400"></i> Department Wise Placement Stats
+                        </h3>
+                        <span class="text-xs text-slate-400">CGPA vs Placement ratio</span>
+                    </div>
+                    <div class="h-64 relative">
+                        <canvas id="branchChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Drive Status Pie Chart -->
+                <div class="glass-panel p-5 rounded-2xl border border-slate-800 space-y-4">
+                    <div class="flex items-center justify-between">
+                        <h3 class="font-semibold text-slate-200 flex items-center gap-2">
+                            <i class="fa-solid fa-chart-pie text-emerald-400"></i> Active Recruitment Status
+                        </h3>
+                    </div>
+                    <div class="h-64 relative flex items-center justify-center">
+                        <canvas id="statusChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Upcoming Drives Section -->
+            <div class="glass-panel p-5 rounded-2xl border border-slate-800 space-y-4">
+                <div class="flex items-center justify-between">
+                    <h3 class="font-semibold text-slate-200 flex items-center gap-2">
+                        <i class="fa-solid fa-briefcase text-purple-400"></i> Active Corporate Recruitment Drives
+                    </h3>
+                    <button onclick="switchTab('matcher')" class="text-xs text-blue-400 hover:text-blue-300 font-medium">Run Eligibility Matcher &rarr;</button>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4" id="company-cards-preview">
+                    <!-- Populated via JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= STUDENTS DIRECTORY TAB ================= -->
+        <section id="tab-students" class="tab-content hidden space-y-6">
+            <div class="glass-panel p-6 rounded-2xl border border-slate-800 space-y-4">
+                <!-- Directory Control Header -->
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                    <div>
+                        <h2 class="text-lg font-bold text-slate-100 flex items-center gap-2">
+                            <i class="fa-solid fa-users text-blue-400"></i> Student Academic Directory
+                        </h2>
+                        <p class="text-xs text-slate-400">Indexed search leveraging composite database indexing simulation</p>
+                    </div>
+                    
+                    <div class="flex flex-wrap items-center gap-3">
+                        <button onclick="resetStudentFilters()" class="px-3 py-1.5 text-xs text-slate-400 hover:text-slate-200 bg-slate-800 hover:bg-slate-700 rounded-lg transition">
+                            <i class="fa-solid fa-rotate-left mr-1"></i> Reset Filters
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Filters Bar -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-3 bg-slate-900/60 p-4 rounded-xl border border-slate-800">
+                    <div>
+                        <label class="block text-xs font-medium text-slate-400 mb-1">Search Student</label>
+                        <div class="relative">
+                            <input type="text" id="filter-search" oninput="renderStudentsTable()" placeholder="Name, Roll No, Skill..." class="w-full bg-slate-800 border border-slate-700 rounded-lg pl-8 pr-3 py-1.5 text-xs text-slate-200 focus:outline-none focus:border-blue-500">
+                            <i class="fa-solid fa-magnifying-glass absolute left-2.5 top-2 text-slate-500 text-xs"></i>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-medium text-slate-400 mb-1">Branch</label>
+                        <select id="filter-branch" onchange="renderStudentsTable()" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-slate-200 focus:outline-none focus:border-blue-500">
+                            <option value="ALL">All Branches</option>
+                            <option value="CSE">Computer Science (CSE)</option>
+                            <option value="IT">Information Tech (IT)</option>
+                            <option value="ECE">Electronics (ECE)</option>
+                            <option value="EEE">Electrical (EEE)</option>
+                            <option value="MECH">Mechanical (MECH)</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-medium text-slate-400 mb-1">Academic Year</label>
+                        <select id="filter-year" onchange="renderStudentsTable()" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-slate-200 focus:outline-none focus:border-blue-500">
+                            <option value="ALL">All Years</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-medium text-slate-400 mb-1">Min CGPA Threshold: <span id="cgpa-val" class="text-blue-400 font-bold">6.0</span></label>
+                        <input type="range" id="filter-cgpa" min="5.0" max="10.0" step="0.1" value="6.0" oninput="document.getElementById('cgpa-val').innerText=this.value; renderStudentsTable();" class="w-full accent-blue-500">
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-medium text-slate-400 mb-1">Backlog Filter</label>
+                        <select id="filter-backlogs" onchange="renderStudentsTable()" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-slate-200 focus:outline-none focus:border-blue-500">
+                            <option value="ALL">All Students</option>
+                            <option value="ZERO" selected>Zero Active Backlogs (Strict)</option>
+                            <option value="MAX_1">Max 1 Backlog</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Table View -->
+                <div class="overflow-x-auto rounded-xl border border-slate-800">
+                    <table class="w-full text-left text-xs text-slate-300">
+                        <thead class="bg-slate-900/90 uppercase text-[10px] tracking-wider text-slate-400 font-semibold border-b border-slate-800">
+                            <tr>
+                                <th class="py-3 px-4">Student Info</th>
+                                <th class="py-3 px-4">Roll Number</th>
+                                <th class="py-3 px-4">Branch</th>
+                                <th class="py-3 px-4">Academic Year</th>
+                                <th class="py-3 px-4">CGPA</th>
+                                <th class="py-3 px-4">Active Backlogs</th>
+                                <th class="py-3 px-4">Coding Score</th>
+                                <th class="py-3 px-4">Placement Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="student-table-body" class="divide-y divide-slate-800/60 bg-slate-900/20">
+                            <!-- Populated via JS -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Table Footer Stats -->
+                <div class="flex items-center justify-between text-xs text-slate-400 px-2 pt-2">
+                    <span id="student-table-count">Showing 0 of 0 candidates</span>
+                    <div class="flex items-center gap-2">
+                        <span class="inline-block w-2 h-2 rounded-full bg-emerald-500"></span> Composite Index Active: idx_student_eligibility (branch, cgpa, backlogs)
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= DRIVE ELIGIBILITY MATCHER TAB ================= -->
+        <section id="tab-matcher" class="tab-content hidden space-y-6">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <!-- Company Selector Panel -->
+                <div class="glass-panel p-6 rounded-2xl border border-slate-800 space-y-5">
+                    <div>
+                        <h2 class="text-base font-bold text-slate-100 flex items-center gap-2">
+                            <i class="fa-solid fa-building-circle-check text-blue-400"></i> Select Corporate Drive
+                        </h2>
+                        <p class="text-xs text-slate-400">Evaluates eligibility criteria against composite student records</p>
+                    </div>
+
+                    <div class="space-y-3" id="company-selector-list">
+                        <!-- Populated via JS -->
+                    </div>
+
+                    <!-- Custom Criterion Builder -->
+                    <div class="pt-4 border-t border-slate-800 space-y-3">
+                        <h3 class="text-xs font-semibold text-slate-300 uppercase tracking-wider">Custom Criterion Test</h3>
+                        <div>
+                            <label class="block text-[11px] text-slate-400 mb-1">Required Cutoff CGPA</label>
+                            <input type="number" id="custom-cgpa" value="7.5" step="0.1" max="10" min="0" oninput="runCustomMatcher()" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-slate-200">
+                        </div>
+                        <div>
+                            <label class="block text-[11px] text-slate-400 mb-1">Max Allowed Backlogs</label>
+                            <input type="number" id="custom-backlogs" value="0" min="0" max="5" oninput="runCustomMatcher()" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-slate-200">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Match Results View -->
+                <div class="lg:col-span-2 glass-panel p-6 rounded-2xl border border-slate-800 space-y-5">
+                    <!-- Selected Company Header -->
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-800" id="selected-company-header">
+                        <!-- Populated via JS -->
+                    </div>
+
+                    <!-- SQL Query Generated Preview -->
+                    <div class="bg-slate-950 p-3.5 rounded-xl border border-slate-800 space-y-1.5">
+                        <div class="flex items-center justify-between">
+                            <span class="text-[10px] font-semibold text-emerald-400 uppercase tracking-wider code-font">Executed SQL Filtering Logic</span>
+                            <span class="text-[10px] text-slate-500 code-font">Index Scan: idx_student_eligibility</span>
+                        </div>
+                        <pre class="text-xs text-blue-300 code-font overflow-x-auto whitespace-pre-wrap" id="matcher-sql-preview">SELECT * FROM Students WHERE ...</pre>
+                    </div>
+
+                    <!-- Qualified Candidates List -->
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between">
+                            <h3 class="text-xs font-bold text-slate-300 uppercase tracking-wider">
+                                Eligible Candidates (<span id="eligible-candidates-count" class="text-emerald-400">0</span>)
+                            </h3>
+                            <button onclick="exportEligibleCsv()" class="text-xs text-slate-400 hover:text-slate-200 flex items-center gap-1 bg-slate-800 px-2.5 py-1 rounded-md border border-slate-700">
+                                <i class="fa-solid fa-download"></i> Export Eligible List
+                            </button>
+                        </div>
+
+                        <div class="overflow-x-auto rounded-xl border border-slate-800">
+                            <table class="w-full text-left text-xs text-slate-300">
+                                <thead class="bg-slate-900/90 uppercase text-[10px] text-slate-400 font-semibold">
+                                    <tr>
+                                        <th class="py-2.5 px-4">Student</th>
+                                        <th class="py-2.5 px-4">Branch</th>
+                                        <th class="py-2.5 px-4">CGPA</th>
+                                        <th class="py-2.5 px-4">Backlogs</th>
+                                        <th class="py-2.5 px-4">Code Score</th>
+                                        <th class="py-2.5 px-4">Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="eligible-students-body" class="divide-y divide-slate-800/60 bg-slate-900/20">
+                                    <!-- Populated via JS -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= RANKINGS & WINDOW FUNCTIONS TAB ================= -->
+        <section id="tab-rankings" class="tab-content hidden space-y-6">
+            <div class="glass-panel p-6 rounded-2xl border border-slate-800 space-y-6">
+                <!-- Header -->
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                    <div>
+                        <h2 class="text-lg font-bold text-slate-100 flex items-center gap-2">
+                            <i class="fa-solid fa-trophy text-amber-400"></i> SQL Window Functions Leaderboard
+                        </h2>
+                        <p class="text-xs text-slate-400">Interactive execution of DENSE_RANK(), ROW_NUMBER(), and RANK() partitioned by branch</p>
+                    </div>
+
+                    <!-- Function Logic Toggle -->
+                    <div class="flex items-center bg-slate-900 p-1 rounded-xl border border-slate-800 text-xs">
+                        <button onclick="setRankingMode('OVERALL')" id="rank-mode-overall" class="px-3 py-1.5 rounded-lg font-medium bg-blue-600 text-white transition">Overall Rank</button>
+                        <button onclick="setRankingMode('PARTITION_BRANCH')" id="rank-mode-branch" class="px-3 py-1.5 rounded-lg font-medium text-slate-400 hover:text-slate-200 transition">PARTITION BY Branch</button>
+                    </div>
+                </div>
+
+                <!-- Window Function Explanation Banner -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
+                    <div class="p-3 bg-blue-500/10 border border-blue-500/20 rounded-xl">
+                        <span class="font-bold text-blue-400 code-font">ROW_NUMBER()</span>
+                        <p class="text-slate-300 text-[11px] mt-1">Assigns unique sequential integers even when coding scores tie.</p>
+                    </div>
+                    <div class="p-3 bg-purple-500/10 border border-purple-500/20 rounded-xl">
+                        <span class="font-bold text-purple-400 code-font">DENSE_RANK()</span>
+                        <p class="text-slate-300 text-[11px] mt-1">Assigns tied ranks without gaps in rank numbers (e.g., 1, 2, 2, 3).</p>
+                    </div>
+                    <div class="p-3 bg-emerald-500/10 border border-emerald-500/20 rounded-xl">
+                        <span class="font-bold text-emerald-400 code-font">RANK()</span>
+                        <p class="text-slate-300 text-[11px] mt-1">Assigns tied ranks and skips subsequent rank numbers (e.g., 1, 2, 2, 4).</p>
+                    </div>
+                </div>
+
+                <!-- Executed SQL Explanation -->
+                <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-1">
+                    <span class="text-[10px] font-semibold text-amber-400 uppercase tracking-wider code-font">Active Window Function Query</span>
+                    <pre class="text-xs text-blue-300 code-font overflow-x-auto" id="ranking-sql-query"></pre>
+                </div>
+
+                <!-- Rankings Table -->
+                <div class="overflow-x-auto rounded-xl border border-slate-800">
+                    <table class="w-full text-left text-xs text-slate-300">
+                        <thead class="bg-slate-900/90 uppercase text-[10px] text-slate-400 font-semibold border-b border-slate-800">
+                            <tr>
+                                <th class="py-3 px-4">Student Name</th>
+                                <th class="py-3 px-4">Branch</th>
+                                <th class="py-3 px-4 text-center">Test Score (Score)</th>
+                                <th class="py-3 px-4 text-center">CGPA</th>
+                                <th class="py-3 px-4 text-center font-bold text-purple-400 bg-purple-500/5">DENSE_RANK()</th>
+                                <th class="py-3 px-4 text-center font-bold text-blue-400 bg-blue-500/5">ROW_NUMBER()</th>
+                                <th class="py-3 px-4 text-center font-bold text-emerald-400 bg-emerald-500/5">RANK()</th>
+                            </tr>
+                        </thead>
+                        <tbody id="rankings-table-body" class="divide-y divide-slate-800/60 bg-slate-900/20">
+                            <!-- Populated via JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= PIPELINE TRACKER TAB ================= -->
+        <section id="tab-pipeline" class="tab-content hidden space-y-6">
+            <div class="glass-panel p-6 rounded-2xl border border-slate-800 space-y-6">
+                <!-- Header -->
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                    <div>
+                        <h2 class="text-lg font-bold text-slate-100 flex items-center gap-2">
+                            <i class="fa-solid fa-diagram-project text-emerald-400"></i> Recruitment Pipeline Tracking
+                        </h2>
+                        <p class="text-xs text-slate-400">Track candidates across interview stages (SQL Table: InterviewRounds)</p>
+                    </div>
+
+                    <div class="flex items-center gap-2">
+                        <select id="pipeline-company-filter" onchange="renderPipeline()" class="bg-slate-800 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-slate-200 focus:outline-none">
+                            <option value="ALL">All Companies</option>
+                            <option value="Google">Google</option>
+                            <option value="Microsoft">Microsoft</option>
+                            <option value="Amazon">Amazon</option>
+                            <option value="TCS Digital">TCS Digital</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Kanban Columns -->
+                <div class="grid grid-cols-1 md:grid-cols-5 gap-4 overflow-x-auto pb-2">
+                    <!-- Applied -->
+                    <div class="bg-slate-900/60 p-3 rounded-xl border border-slate-800 space-y-3">
+                        <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+                            <span class="text-xs font-bold text-slate-300 uppercase flex items-center gap-1.5">
+                                <span class="w-2 h-2 rounded-full bg-slate-400"></span> Applied
+                            </span>
+                            <span class="text-xs font-semibold px-2 py-0.5 rounded-full bg-slate-800 text-slate-300" id="cnt-Applied">0</span>
+                        </div>
+                        <div class="space-y-2.5 min-h-[350px]" id="col-Applied"></div>
+                    </div>
+
+                    <!-- Online Test -->
+                    <div class="bg-slate-900/60 p-3 rounded-xl border border-slate-800 space-y-3">
+                        <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+                            <span class="text-xs font-bold text-blue-400 uppercase flex items-center gap-1.5">
+                                <span class="w-2 h-2 rounded-full bg-blue-500"></span> Written Test
+                            </span>
+                            <span class="text-xs font-semibold px-2 py-0.5 rounded-full bg-blue-500/10 text-blue-400" id="cnt-Written Test">0</span>
+                        </div>
+                        <div class="space-y-2.5 min-h-[350px]" id="col-Written Test"></div>
+                    </div>
+
+                    <!-- Tech Interview -->
+                    <div class="bg-slate-900/60 p-3 rounded-xl border border-slate-800 space-y-3">
+                        <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+                            <span class="text-xs font-bold text-purple-400 uppercase flex items-center gap-1.5">
+                                <span class="w-2 h-2 rounded-full bg-purple-500"></span> Tech Round
+                            </span>
+                            <span class="text-xs font-semibold px-2 py-0.5 rounded-full bg-purple-500/10 text-purple-400" id="cnt-Technical Round">0</span>
+                        </div>
+                        <div class="space-y-2.5 min-h-[350px]" id="col-Technical Round"></div>
+                    </div>
+
+                    <!-- HR Round -->
+                    <div class="bg-slate-900/60 p-3 rounded-xl border border-slate-800 space-y-3">
+                        <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+                            <span class="text-xs font-bold text-amber-400 uppercase flex items-center gap-1.5">
+                                <span class="w-2 h-2 rounded-full bg-amber-500"></span> HR Interview
+                            </span>
+                            <span class="text-xs font-semibold px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-400" id="cnt-HR Round">0</span>
+                        </div>
+                        <div class="space-y-2.5 min-h-[350px]" id="col-HR Round"></div>
+                    </div>
+
+                    <!-- Offered / Selected -->
+                    <div class="bg-slate-900/60 p-3 rounded-xl border border-slate-800 space-y-3">
+                        <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+                            <span class="text-xs font-bold text-emerald-400 uppercase flex items-center gap-1.5">
+                                <span class="w-2 h-2 rounded-full bg-emerald-500"></span> Offer Extended
+                            </span>
+                            <span class="text-xs font-semibold px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400" id="cnt-Selected">0</span>
+                        </div>
+                        <div class="space-y-2.5 min-h-[350px]" id="col-Selected"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <section id="author-crud-panel" class="hidden max-w-7xl w-full mx-auto p-4 lg:p-8 pt-0">
+        <div class="glass-panel p-6 rounded-2xl border border-slate-800 space-y-5">
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+                <div>
+                    <h2 class="text-lg font-bold text-slate-100 flex items-center gap-2">
+                        <i class="fa-solid fa-pen-to-square text-emerald-400"></i> Author Content Studio
+                    </h2>
+                    <p class="text-xs text-slate-400">Manage student records by academic year and publish placement notices.</p>
+                </div>
+                <span class="rounded-full border border-emerald-500/30 bg-emerald-500/10 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-emerald-300">Author Access</span>
+            </div>
+
+            <form id="author-post-form" class="grid gap-4 md:grid-cols-2">
+                <input type="hidden" id="author-post-id">
+                <div class="md:col-span-2">
+                    <label class="block text-[11px] font-medium text-slate-400 mb-1">Post title</label>
+                    <input id="author-title" type="text" required class="w-full rounded-xl border border-slate-700 bg-slate-950 px-3 py-2.5 text-sm text-white focus:border-emerald-500 focus:outline-none" placeholder="Campus drive update">
+                </div>
+                <div>
+                    <label class="block text-[11px] font-medium text-slate-400 mb-1">Category</label>
+                    <select id="author-category" class="w-full rounded-xl border border-slate-700 bg-slate-950 px-3 py-2.5 text-sm text-white focus:border-emerald-500 focus:outline-none">
+                        <option value="Placement Update">Placement Update</option>
+                        <option value="Career Guidance">Career Guidance</option>
+                        <option value="Interview Tips">Interview Tips</option>
+                        <option value="Drive Alert">Drive Alert</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-[11px] font-medium text-slate-400 mb-1">Author</label>
+                    <input id="author-name" type="text" readonly class="w-full rounded-xl border border-slate-700 bg-slate-900 px-3 py-2.5 text-sm text-slate-300 focus:outline-none">
+                </div>
+                <div class="md:col-span-2">
+                    <label class="block text-[11px] font-medium text-slate-400 mb-1">Content</label>
+                    <textarea id="author-content" rows="4" required class="w-full rounded-xl border border-slate-700 bg-slate-950 px-3 py-2.5 text-sm text-white focus:border-emerald-500 focus:outline-none" placeholder="Share latest placement updates..."></textarea>
+                </div>
+                <div class="md:col-span-2 flex items-center justify-end gap-3">
+                    <button type="button" id="cancel-author-edit" class="hidden rounded-xl border border-slate-700 bg-slate-800 px-4 py-2 text-sm font-medium text-slate-200">Cancel</button>
+                    <button type="submit" class="rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 px-5 py-2.5 text-sm font-bold text-white hover:brightness-110 transition">Save post</button>
+                </div>
+            </form>
+
+            <div class="border-t border-slate-800 pt-5 space-y-4">
+                <div>
+                    <h3 class="text-sm font-semibold text-slate-200">Add student record</h3>
+                    <p class="text-xs text-slate-400 mt-1">Student records are saved with the selected academic year and appear in the year filter.</p>
+                </div>
+                <form id="author-student-form" class="grid gap-3 md:grid-cols-4">
+                    <input id="new-student-id" required class="rounded-xl border border-slate-700 bg-slate-950 px-3 py-2.5 text-sm text-white" placeholder="Student ID">
+                    <input id="new-student-name" required class="rounded-xl border border-slate-700 bg-slate-950 px-3 py-2.5 text-sm text-white" placeholder="Full name">
+                    <input id="new-student-branch" required class="rounded-xl border border-slate-700 bg-slate-950 px-3 py-2.5 text-sm text-white" placeholder="Branch (e.g. CSE)">
+                    <input id="new-student-year" required type="number" min="2000" max="2100" class="rounded-xl border border-slate-700 bg-slate-950 px-3 py-2.5 text-sm text-white" placeholder="Academic year (e.g. 2026)">
+                    <input id="new-student-cgpa" required type="number" min="0" max="10" step="0.01" class="rounded-xl border border-slate-700 bg-slate-950 px-3 py-2.5 text-sm text-white" placeholder="CGPA">
+                    <input id="new-student-backlogs" required type="number"  class="rounded-xl border border-slate-700 bg-slate-950 px-3 py-2.5 text-sm text-white" placeholder="Active backlogs">
+                    <input id="new-student-score" required type="number" class="rounded-xl border border-slate-700 bg-slate-950 px-3 py-2.5 text-sm text-white" placeholder="Coding score">
+                    <select id="new-student-status" class="rounded-xl border border-slate-700 bg-slate-950 px-3 py-2.5 text-sm text-white">
+                        <option>Unplaced</option><option>In Process</option><option>Placed</option>
+                    </select>
+                    <select id="new-student-stage" class="rounded-xl border border-slate-700 bg-slate-950 px-3 py-2.5 text-sm text-white">
+                        <option>Applied</option><option>Written Test</option><option>Technical Round</option><option>HR Round</option><option>Selected</option>
+                    </select>
+                    <input id="new-student-company" class="rounded-xl border border-slate-700 bg-slate-950 px-3 py-2.5 text-sm text-white" placeholder="Company (optional)">
+                    <div class="md:col-span-4 flex justify-end">
+                        <button type="submit" class="rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 px-5 py-2.5 text-sm font-bold text-white hover:brightness-110 transition">Add student</button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="space-y-3">
+                <div class="flex items-center justify-between">
+                    <h3 class="text-sm font-semibold text-slate-200">Published posts</h3>
+                    <span id="post-count" class="text-[11px] text-slate-400">0 items</span>
+                </div>
+                <div id="author-post-list" class="space-y-3"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SQL Queries Drawer Modal -->
+    <div id="sql-drawer" class="fixed inset-y-0 right-0 w-full max-w-2xl bg-slate-950 border-l border-slate-800 z-50 transform translate-x-full transition-transform duration-300 ease-in-out flex flex-col shadow-2xl">
+        <!-- Drawer Header -->
+        <div class="p-4 bg-slate-900 border-b border-slate-800 flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+                <i class="fa-solid fa-terminal text-emerald-400 text-base"></i>
+                <h3 class="font-bold text-slate-100 text-sm">Underlying SQL Architecture & Queries</h3>
+            </div>
+            <button onclick="toggleSqlDrawer()" class="text-slate-400 hover:text-white text-sm">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+
+        <!-- Drawer Content Body -->
+        <div class="p-6 overflow-y-auto space-y-6 flex-1 text-xs code-font">
+            <!-- Table Creation Schema -->
+            <div class="space-y-2">
+                <h4 class="text-emerald-400 font-semibold uppercase tracking-wider text-[11px]">1. Composite Index Creation (DDL)</h4>
+                <p class="text-slate-400 font-sans text-xs">Composite index speeds up multi-criteria filtering across 10,000+ student records.</p>
+                <div class="bg-slate-900 p-3.5 rounded-xl border border-slate-800 relative group">
+                    <pre class="text-blue-300 whitespace-pre-wrap">-- Speed up CGPA, Branch & Backlog filtering
+CREATE INDEX idx_student_eligibility 
+ON Students (branch, cgpa DESC, active_backlogs ASC);
+
+-- Speed up rank window query performance
+CREATE INDEX idx_test_scores 
+ON AcademicRecords (coding_score DESC, cgpa DESC);</pre>
+                    <button onclick="copyToClipboard(this)" class="absolute top-2 right-2 px-2 py-1 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded text-[10px] font-sans">Copy</button>
+                </div>
+            </div>
+
+            <!-- Complex Eligibility Filter -->
+            <div class="space-y-2">
+                <h4 class="text-emerald-400 font-semibold uppercase tracking-wider text-[11px]">2. Company Criteria Filtering Query (DML)</h4>
+                <div class="bg-slate-900 p-3.5 rounded-xl border border-slate-800 relative group">
+                    <pre class="text-blue-300 whitespace-pre-wrap">SELECT 
+    s.student_id,
+    s.full_name,
+    s.branch,
+    a.cgpa,
+    a.active_backlogs,
+    a.coding_score
+FROM Students s
+JOIN AcademicRecords a ON s.student_id = a.student_id
+WHERE a.cgpa >= 7.5
+  AND a.active_backlogs <= 0
+  AND s.branch IN ('CSE', 'IT', 'ECE')
+ORDER BY a.cgpa DESC;</pre>
+                    <button onclick="copyToClipboard(this)" class="absolute top-2 right-2 px-2 py-1 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded text-[10px] font-sans">Copy</button>
+                </div>
+            </div>
+
+            <!-- Window Functions Query -->
+            <div class="space-y-2">
+                <h4 class="text-emerald-400 font-semibold uppercase tracking-wider text-[11px]">3. Candidate Ranking with Window Functions</h4>
+                <div class="bg-slate-900 p-3.5 rounded-xl border border-slate-800 relative group">
+                    <pre class="text-blue-300 whitespace-pre-wrap">SELECT 
+    s.full_name,
+    s.branch,
+    a.coding_score,
+    a.cgpa,
+    DENSE_RANK() OVER (
+        PARTITION BY s.branch 
+        ORDER BY a.coding_score DESC, a.cgpa DESC
+    ) AS branch_dense_rank,
+    ROW_NUMBER() OVER (
+        PARTITION BY s.branch 
+        ORDER BY a.coding_score DESC, a.cgpa DESC
+    ) AS branch_row_num,
+    RANK() OVER (
+        PARTITION BY s.branch 
+        ORDER BY a.coding_score DESC
+    ) AS branch_rank
+FROM Students s
+JOIN AcademicRecords a ON s.student_id = a.student_id;</pre>
+                    <button onclick="copyToClipboard(this)" class="absolute top-2 right-2 px-2 py-1 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded text-[10px] font-sans">Copy</button>
+                </div>
+            </div>
+
+            <!-- CTE & Aggregation Query -->
+            <div class="space-y-2">
+                <h4 class="text-emerald-400 font-semibold uppercase tracking-wider text-[11px]">4. Branch Wise Placement Summary (CTE)</h4>
+                <div class="bg-slate-900 p-3.5 rounded-xl border border-slate-800 relative group">
+                    <pre class="text-blue-300 whitespace-pre-wrap">WITH PlacementSummary AS (
+    SELECT 
+        s.branch,
+        COUNT(s.student_id) AS total_students,
+        SUM(CASE WHEN s.placement_status = 'Placed' THEN 1 ELSE 0 END) AS placed_students,
+        ROUND(AVG(a.cgpa), 2) AS avg_cgpa
+    FROM Students s
+    JOIN AcademicRecords a ON s.student_id = a.student_id
+    GROUP BY s.branch
+)
+SELECT 
+    branch,
+    total_students,
+    placed_students,
+    ROUND((placed_students * 100.0 / total_students), 2) AS placement_percentage,
+    avg_cgpa
+FROM PlacementSummary
+ORDER BY placement_percentage DESC;</pre>
+                    <button onclick="copyToClipboard(this)" class="absolute top-2 right-2 px-2 py-1 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded text-[10px] font-sans">Copy</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js?v=student-xlsx-20260928"></script>
+</body>
+</html>

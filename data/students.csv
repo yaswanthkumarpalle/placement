@@ -1,0 +1,117 @@
+id,fullName,branch,cgpa,backlogs,codingScore,status,pipelineStage,company
+STU-2026-101,Aarav Sharma,CSE,9.85,0,980,Placed,Selected,Google
+STU-2026-102,Ananya Iyer,AIDS,9.72,0,950,Placed,Selected,NVIDIA
+STU-2026-103,Siddharth Patel,CSE,9.45,0,920,Placed,Selected,Atlassian
+STU-2026-116,Varun Mishra,AIDS,9.35,0,799,Unplaced,Applied,-
+STU-2026-152,Rohan Joshi,AIDS,9.35,0,871,Unplaced,Applied,-
+STU-2026-188,Arjun Mishra,AIDS,9.35,0,943,Unplaced,Applied,-
+STU-2026-224,Manish Joshi,AIDS,9.35,0,835,Unplaced,Applied,-
+STU-2026-104,Kavya Reddy,IT,9.3,0,890,Placed,Selected,Microsoft
+STU-2026-121,Neha Chowdhury,MECH,9.26,0,797,In Process,Technical Round,-
+STU-2026-157,Ishita Verma,MECH,9.26,0,869,In Process,Technical Round,-
+STU-2026-193,Anushka Chowdhury,MECH,9.26,0,941,In Process,Technical Round,-
+STU-2026-126,Abhishek Reddy,EEE,9.17,0,794,Placed,Selected,Microsoft
+STU-2026-162,Aarav Menon,EEE,9.17,0,866,Placed,Selected,NVIDIA
+STU-2026-198,Siddharth Reddy,EEE,9.17,0,938,Placed,Selected,Amazon
+STU-2026-106,Meera Deshmukh,CSE,9.15,0,880,Placed,Selected,Goldman Sachs
+STU-2026-131,Sanya Kulkarni,ECE,9.08,0,791,Placed,Selected,TCS Digital / Prime
+STU-2026-167,Tanvi Rao,ECE,9.08,0,863,Placed,Selected,TCS Digital / Prime
+STU-2026-203,Ritika Kulkarni,ECE,9.08,0,935,Placed,Selected,TCS Digital / Prime
+STU-2026-136,Nikhil Joshi,IT,8.99,0,789,Unplaced,Applied,-
+STU-2026-172,Vivek Mishra,IT,8.99,0,861,Unplaced,Applied,-
+STU-2026-208,Rahul Joshi,IT,8.99,0,933,Unplaced,Applied,-
+STU-2026-105,Rohan Verma,ECE,8.92,0,840,Placed,Selected,Amazon
+STU-2026-141,Ananya Verma,CSE,8.9,0,786,Placed,Selected,NVIDIA
+STU-2026-177,Kavya Chowdhury,CSE,8.9,0,858,Placed,Selected,Amazon
+STU-2026-213,Sneha Verma,CSE,8.9,0,930,Placed,Selected,Goldman Sachs
+STU-2026-107,Vikram Singh,CSE,8.85,0,860,In Process,Technical Round,-
+STU-2026-146,Dev Menon,AIDS,8.81,0,783,Unplaced,Applied,-
+STU-2026-182,Harsh Reddy,AIDS,8.81,0,855,Unplaced,Applied,-
+STU-2026-218,Aditya Menon,AIDS,8.81,0,927,Unplaced,Applied,-
+STU-2026-115,Pooja Kulkarni,MECH,8.72,0,889,Placed,Selected,TCS Digital / Prime
+STU-2026-151,Bhavna Rao,MECH,8.72,0,781,Placed,Selected,TCS Digital / Prime
+STU-2026-187,Divya Kulkarni,MECH,8.72,0,853,Placed,Selected,TCS Digital / Prime
+STU-2026-223,Riya Rao,MECH,8.72,0,745,Placed,Selected,TCS Digital / Prime
+STU-2026-108,Tanvi Joshi,IT,8.7,0,820,In Process,Technical Round,-
+STU-2026-109,Arjun Bose,AIDS,8.65,0,810,In Process,Technical Round,-
+STU-2026-120,Rohan Joshi,EEE,8.63,0,886,Placed,Selected,NVIDIA
+STU-2026-156,Arjun Mishra,EEE,8.63,0,778,Placed,Selected,Amazon
+STU-2026-192,Manish Joshi,EEE,8.63,0,850,Placed,Selected,Goldman Sachs
+STU-2026-125,Ishita Verma,ECE,8.54,0,883,In Process,Technical Round,-
+STU-2026-161,Anushka Chowdhury,ECE,8.54,0,775,In Process,Technical Round,-
+STU-2026-197,Meera Verma,ECE,8.54,0,847,In Process,Technical Round,-
+STU-2026-130,Aarav Menon,IT,8.45,0,881,Unplaced,Applied,-
+STU-2026-166,Siddharth Reddy,IT,8.45,0,773,Unplaced,Applied,-
+STU-2026-202,Gautam Menon,IT,8.45,0,845,Unplaced,Applied,-
+STU-2026-110,Priya Nair,ECE,8.4,0,790,In Process,Technical Round,-
+STU-2026-135,Tanvi Rao,CSE,8.36,0,878,Placed,Selected,Amazon
+STU-2026-171,Ritika Kulkarni,CSE,8.36,0,770,Placed,Selected,Goldman Sachs
+STU-2026-207,Priya Rao,CSE,8.36,0,842,Placed,Selected,Atlassian
+STU-2026-140,Vivek Mishra,AIDS,8.27,0,875,Unplaced,Applied,-
+STU-2026-176,Rahul Joshi,AIDS,8.27,0,767,Unplaced,Applied,-
+STU-2026-212,Varun Mishra,AIDS,8.27,0,839,Unplaced,Applied,-
+STU-2026-145,Kavya Chowdhury,MECH,8.18,0,873,In Process,Technical Round,-
+STU-2026-181,Sneha Verma,MECH,8.18,0,765,In Process,Technical Round,-
+STU-2026-217,Neha Chowdhury,MECH,8.18,0,837,In Process,Technical Round,-
+STU-2026-114,Dev Menon,EEE,8.09,0,798,Unplaced,Applied,-
+STU-2026-150,Harsh Reddy,EEE,8.09,0,690,Unplaced,Applied,-
+STU-2026-186,Aditya Menon,EEE,8.09,0,762,Unplaced,Applied,-
+STU-2026-222,Abhishek Reddy,EEE,8.09,0,834,Unplaced,Applied,-
+STU-2026-119,Bhavna Rao,ECE,8.0,0,796,Placed,Selected,TCS Digital / Prime
+STU-2026-155,Divya Kulkarni,ECE,8.0,0,688,Placed,Selected,TCS Digital / Prime
+STU-2026-191,Riya Rao,ECE,8.0,0,760,Placed,Selected,TCS Digital / Prime
+STU-2026-124,Arjun Mishra,IT,7.91,0,793,Unplaced,Applied,-
+STU-2026-160,Manish Joshi,IT,7.91,0,685,Unplaced,Applied,-
+STU-2026-196,Karan Mishra,IT,7.91,0,757,Unplaced,Applied,-
+STU-2026-129,Anushka Chowdhury,CSE,7.82,0,790,In Process,Technical Round,-
+STU-2026-165,Meera Verma,CSE,7.82,0,682,In Process,Technical Round,-
+STU-2026-201,Shruti Chowdhury,CSE,7.82,0,754,In Process,Technical Round,-
+STU-2026-134,Siddharth Reddy,AIDS,7.73,0,788,Unplaced,Applied,-
+STU-2026-170,Gautam Menon,AIDS,7.73,0,680,Unplaced,Applied,-
+STU-2026-206,Vikram Reddy,AIDS,7.73,0,752,Unplaced,Applied,-
+STU-2026-139,Ritika Kulkarni,MECH,7.64,0,785,Placed,Selected,TCS Digital / Prime
+STU-2026-175,Priya Rao,MECH,7.64,0,677,Placed,Selected,TCS Digital / Prime
+STU-2026-211,Pooja Kulkarni,MECH,7.64,0,749,Placed,Selected,TCS Digital / Prime
+STU-2026-144,Rahul Joshi,EEE,7.55,0,782,Unplaced,Applied,-
+STU-2026-180,Varun Mishra,EEE,7.55,0,674,Unplaced,Applied,-
+STU-2026-216,Rohan Joshi,EEE,7.55,0,746,Unplaced,Applied,-
+STU-2026-113,Kavya Chowdhury,ECE,7.46,0,708,In Process,Technical Round,-
+STU-2026-149,Sneha Verma,ECE,7.46,0,780,In Process,Technical Round,-
+STU-2026-185,Neha Chowdhury,ECE,7.46,0,672,In Process,Technical Round,-
+STU-2026-221,Ishita Verma,ECE,7.46,0,744,In Process,Technical Round,-
+STU-2026-118,Harsh Reddy,IT,7.37,0,705,Unplaced,Applied,-
+STU-2026-154,Aditya Menon,IT,7.37,0,777,Unplaced,Applied,-
+STU-2026-190,Abhishek Reddy,IT,7.37,0,669,Unplaced,Applied,-
+STU-2026-123,Divya Kulkarni,CSE,7.28,0,702,Placed,Selected,TCS Digital / Prime
+STU-2026-195,Sanya Kulkarni,CSE,7.28,0,666,Placed,Selected,TCS Digital / Prime
+STU-2026-128,Manish Joshi,AIDS,7.19,0,700,Unplaced,Applied,-
+STU-2026-164,Karan Mishra,AIDS,7.19,0,772,Unplaced,Applied,-
+STU-2026-200,Nikhil Joshi,AIDS,7.19,0,664,Unplaced,Applied,-
+STU-2026-133,Meera Verma,MECH,7.1,0,697,Unplaced,Applied,-
+STU-2026-169,Shruti Chowdhury,MECH,7.1,0,769,Unplaced,Applied,-
+STU-2026-205,Ananya Verma,MECH,7.1,0,661,Unplaced,Applied,-
+STU-2026-138,Gautam Menon,EEE,7.01,0,694,Unplaced,Applied,-
+STU-2026-174,Vikram Reddy,EEE,7.01,0,766,Unplaced,Applied,-
+STU-2026-210,Dev Menon,EEE,7.01,0,658,Unplaced,Applied,-
+STU-2026-179,Pooja Kulkarni,ECE,6.92,0,764,Unplaced,Applied,-
+STU-2026-112,Rahul Joshi,IT,6.83,0,617,Unplaced,Applied,-
+STU-2026-148,Varun Mishra,IT,6.83,0,689,Unplaced,Applied,-
+STU-2026-184,Rohan Joshi,IT,6.83,0,581,Unplaced,Applied,-
+STU-2026-220,Arjun Mishra,IT,6.83,0,653,Unplaced,Applied,-
+STU-2026-117,Sneha Verma,CSE,6.74,0,614,Unplaced,Applied,-
+STU-2026-153,Neha Chowdhury,CSE,6.74,0,686,Unplaced,Applied,-
+STU-2026-189,Ishita Verma,CSE,6.74,0,578,Unplaced,Applied,-
+STU-2026-122,Aditya Menon,AIDS,6.65,0,612,Unplaced,Applied,-
+STU-2026-158,Abhishek Reddy,AIDS,6.65,0,684,Unplaced,Applied,-
+STU-2026-194,Aarav Menon,AIDS,6.65,0,576,Unplaced,Applied,-
+STU-2026-163,Sanya Kulkarni,MECH,6.56,0,681,Unplaced,Applied,-
+STU-2026-132,Karan Mishra,EEE,6.47,0,606,Unplaced,Applied,-
+STU-2026-204,Vivek Mishra,EEE,6.47,0,570,Unplaced,Applied,-
+STU-2026-137,Shruti Chowdhury,ECE,6.38,0,604,Unplaced,Applied,-
+STU-2026-173,Ananya Verma,ECE,6.38,0,676,Unplaced,Applied,-
+STU-2026-209,Kavya Chowdhury,ECE,6.38,0,568,Unplaced,Applied,-
+STU-2026-142,Vikram Reddy,IT,6.29,0,601,Unplaced,Applied,-
+STU-2026-178,Dev Menon,IT,6.29,0,673,Unplaced,Applied,-
+STU-2026-214,Harsh Reddy,IT,6.29,0,565,Unplaced,Applied,-
+STU-2026-147,Pooja Kulkarni,CSE,6.2,0,599,Unplaced,Applied,-
+STU-2026-219,Divya Kulkarni,CSE,6.2,0,563,Unplaced,Applied,-
