@@ -34,7 +34,7 @@ pipeline {
                 if not exist build mkdir build
 
                 copy index.html build\\
-                copy style.css build\\
+                copy styles.css build\\
                 '''
             }
         }
@@ -47,7 +47,7 @@ pipeline {
                 if not exist C:\\jenkins-deploy mkdir C:\\jenkins-deploy
 
                 copy /Y build\\index.html C:\\jenkins-deploy\\
-                copy /Y build\\style.css C:\\jenkins-deploy\\
+                copy /Y build\\styles.css C:\\jenkins-deploy\\
                 '''
             }
         }
