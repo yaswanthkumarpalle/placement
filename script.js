@@ -58,7 +58,7 @@ const companies = [
 
 const firstNames = ['Palle', 'Aarav', 'Ananya', 'Rohan', 'Sanya', 'Vikram', 'Neha', 'Karan', 'Priya', 'Aditya', 'Meera', 'Rahul', 'Divya', 'Siddharth', 'Kavya'];
 const lastNames = ['Kumar', 'Sharma', 'Verma', 'Patel', 'Reddy', 'Singh', 'Rao', 'Nair', 'Joshi', 'Gupta', 'Chowdury', 'Das'];
-const branches = ['CSE', 'IT', 'ECE', 'EEE', 'MECH'];
+const branches = ['CSE', 'IT', 'ECE', 'EEE', 'MECH', 'DS', 'AIML'];
 
 let studentDataset = [];
 let selectedCompany = companies[0];
@@ -567,9 +567,13 @@ function copyToClipboard(btn) {
 }
 
 function renderCharts() {
+    const chartBranches = [...new Set([
+        ...branches,
+        ...studentDataset.map(student => String(student.branch || '').trim()).filter(Boolean)
+    ])];
     const branchCounts = {};
     const branchPlaced = {};
-    branches.forEach(b => { branchCounts[b] = 0; branchPlaced[b] = 0; });
+    chartBranches.forEach(b => { branchCounts[b] = 0; branchPlaced[b] = 0; });
 
     studentDataset.forEach(s => {
         branchCounts[s.branch]++;
@@ -581,11 +585,11 @@ function renderCharts() {
     branchChartObj = new Chart(ctx1, {
         type: 'bar',
         data: {
-            labels: branches,
+            labels: chartBranches,
             datasets: [
                 {
                     label: 'Total Students',
-                    data: branches.map(b => branchCounts[b]),
+                    data: chartBranches.map(b => branchCounts[b]),
                     backgroundColor: 'rgba(59, 130, 246, 0.4)',
                     borderColor: '#3b82f6',
                     borderWidth: 1,
@@ -593,7 +597,7 @@ function renderCharts() {
                 },
                 {
                     label: 'Placed Students',
-                    data: branches.map(b => branchPlaced[b]),
+                    data: chartBranches.map(b => branchPlaced[b]),
                     backgroundColor: 'rgba(16, 185, 129, 0.7)',
                     borderColor: '#10b981',
                     borderWidth: 1,

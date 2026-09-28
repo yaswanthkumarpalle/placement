@@ -21,7 +21,7 @@ last_names = [
     'Kumar', 'Sharma', 'Verma', 'Patel', 'Reddy', 'Singh', 'Rao', 'Nair',
     'Joshi', 'Gupta', 'Chowdury', 'Das'
 ]
-branches = ['CSE', 'IT', 'ECE', 'EEE', 'MECH']
+branches = ['CSE', 'IT', 'ECE', 'EEE', 'MECH', 'DS', 'AIML']
 
 companies = [
     {
